@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exams{% endblock %}
+
+{% block body %}
+    <a href="{{ path('homepage') }}">< Powrót</a>
+    <h1>{{ exam }}</h1>
+    <ul>
+        {% for param in exam.params %}
+            <li>{{ param }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

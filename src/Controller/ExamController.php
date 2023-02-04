@@ -12,21 +12,29 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 class ExamController extends AbstractController
 {
+    public function __construct
+    (
+        private readonly ExamRepository $examRepository,
+        private readonly LoggerInterface $logger
+    )
+    {}
+
     #[Route('/', name: 'homepage')]
-    public function index(ExamRepository $examRepository, LoggerInterface $logger): Response
+    public function index(): Response
     {
-        $logger->alert('Entered index ExamController');
+        $this->logger->debug('Entered index ExamController');
 
         return $this->render('exam/index.html.twig', [
-            'exams' => $examRepository->findAll(),
+            'exams' => $this->examRepository->findAll(),
         ]);
     }
 
     #[Route('/exams/{id}', name: 'exam_show')]
     public function show(Exam $exam): Response
     {
-        return $this->render('exam/index.html.twig', [
-            'exam' => $exam,
+
+        return $this->render('exam/show.html.twig', [
+            'exam' => $exam
         ]);
     }
 }

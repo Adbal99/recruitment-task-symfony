@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Param;
 use App\Form\ParamType;
 use App\Repository\ParamRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ParamController extends AbstractController
 {
+    public function __construct
+    (
+        private readonly LoggerInterface $logger
+    ){}
+
     #[Route('/params', name: 'params')]
     public function index(ParamRepository $paramRepository): Response
     {
@@ -21,15 +29,21 @@ class ParamController extends AbstractController
     }
 
     #[Route('/params/create', name: 'add_param', methods: ['GET', 'POST'])]
-    public function store(Request $request): Response
+    public function store(Request $request, EntityManagerInterface $entityManager): Response
     {
         $param = new Param();
         $form = $this->createForm(ParamType::class, $param);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $task = $form->getData();
 
-            // ... perform some action, such as saving the task to the database
+        $this->logger->debug("Entered: add_param");
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Param $parameter */
+            $parameter = $form->getData();
+            $entityManager->persist($parameter);
+            $entityManager->flush();
+
+            $this->logger->debug("Added new parameter for {$parameter->getExam()} named {$parameter}");
 
             return $this->redirectToRoute('params', ['success' => true]);
         }
