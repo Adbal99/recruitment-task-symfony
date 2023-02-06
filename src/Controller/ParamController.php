@@ -23,6 +23,8 @@ class ParamController extends AbstractController
     #[Route('/params', name: 'params')]
     public function index(ParamRepository $paramRepository): Response
     {
+        $this->logger->debug('Entered: ' . __CLASS__ . '::' . __FUNCTION__);
+
         return $this->render('param/index.html.twig', [
             'params' => $paramRepository->findAll(),
         ]);
@@ -31,6 +33,8 @@ class ParamController extends AbstractController
     #[Route('/params/create', name: 'add_param', methods: ['GET', 'POST'])]
     public function store(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->logger->debug('Entered: ' . __CLASS__ . '::' . __FUNCTION__);
+
         $param = new Param();
         $form = $this->createForm(ParamType::class, $param);
         $form->handleRequest($request);

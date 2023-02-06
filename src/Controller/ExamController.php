@@ -14,15 +14,14 @@ class ExamController extends AbstractController
 {
     public function __construct
     (
-        private readonly ExamRepository $examRepository,
+        private readonly ExamRepository  $examRepository,
         private readonly LoggerInterface $logger
-    )
-    {}
+    ){}
 
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        $this->logger->debug('Entered index ExamController');
+        $this->logger->debug('Entered: ' . __CLASS__ . '::' . __FUNCTION__);
 
         return $this->render('exam/index.html.twig', [
             'exams' => $this->examRepository->findAll(),
@@ -32,6 +31,7 @@ class ExamController extends AbstractController
     #[Route('/exams/{id}', name: 'exam_show')]
     public function show(Exam $exam): Response
     {
+        $this->logger->debug('Entered: ' . __CLASS__ . '::' . __FUNCTION__);
 
         return $this->render('exam/show.html.twig', [
             'exam' => $exam
