@@ -3,11 +3,32 @@
 {% block title %}Exams{% endblock %}
 
 {% block body %}
-    <a href="{{ path('homepage') }}">< Powrót</a>
-    <h1>{{ exam }}</h1>
-    <ul>
-        {% for param in exam.params %}
-            <li>{{ param }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div>
+            <a href="{{ path('homepage') }}" class="change-type">< Powrót</a>
+        </div>
+
+        <div>
+            <h1>{{ exam }}</h1>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opis</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for param in exam.params %}
+                <tr>
+                    <td>{{ param }}</td>
+                    <td>{{ param.value }} zł</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
 {% endblock %}

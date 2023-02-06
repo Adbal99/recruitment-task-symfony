@@ -3,13 +3,39 @@
 {% block title %}Parameters{% endblock %}
 
 {% block body %}
-    <h1>Parametry</h1>
-    <a href="{{ path('homepage') }}">Pokaż badania</a>
-    <a href="{{ path('add_param') }}">Dodaj nowy parametr</a>
-    <ul>
-        {% for param in params %}
-            <li>{{ param }}</li>
-        {% endfor %}
-    </ul>
+
+    <div class="container">
+
+        <div>
+            <h1>Parametry</h1>
+        </div>
+
+        <div class="row center">
+            <div class="padding-3">
+                <a href="{{ path('homepage') }}" class="change-type">Pokaż badania</a>
+            </div>
+            <div class="padding-3">
+                <a href="{{ path('add_param') }}" class="change-type">Dodaj nowy parametr</a>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opis</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for param in params %}
+                <tr>
+                    <td>{{ param }}</td>
+                    <td>{{ param.value }} zł</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 
 {% endblock %}

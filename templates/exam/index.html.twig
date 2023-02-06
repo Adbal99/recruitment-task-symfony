@@ -3,12 +3,29 @@
 {% block title %}Exams{% endblock %}
 
 {% block body %}
-    <h1>Badania</h1>
-    <a href="{{ path('params') }}">Pokaż parametry</a>
-    <ul>
-        {% for exam in exams %}
-            <li><a href="{{ path('exam_show', {'id': exam.id}) }}">{{ exam }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div>
+            <h1>Badania</h1>
+        </div>
+        <div class="padding-3">
+            <a href="{{ path('params') }}" class="change-type">Pokaż parametry</a>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opis</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for exam in exams %}
+                <tr>
+                    <td><a href="{{ path('exam_show', {'id': exam.id}) }}">{{ exam }}</a></td>
+                    <td>{{ exam.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

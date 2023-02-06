@@ -16,7 +16,7 @@ class ParamType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nazwa'
+                'label' => 'Nazwa',
             ])
             ->add('value', MoneyType::class, [
                 'currency' => '',
