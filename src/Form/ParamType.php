@@ -24,7 +24,8 @@ class ParamType extends AbstractType
             ])
             ->add('exam', EntityType::class, [
                 'class' => Exam::class,
-                'label' => 'Badanie'
+                'label' => 'Badanie',
+                'required' => true
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Dodaj'

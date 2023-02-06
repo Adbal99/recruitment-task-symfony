@@ -64,8 +64,19 @@ class Param
         return $this;
     }
 
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'value' => $this->value,
+            'exam' => $this->exam,
+        ];
+    }
+
     public function __toString(): string
     {
         return (string)$this->getName();
     }
+
 }

@@ -40,6 +40,13 @@ class ParamController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Param $parameter */
             $parameter = $form->getData();
+
+            if ($parameter->getExam() === null) {
+                $this->logger->error("Exam is not given for {$parameter}");
+                // render error page or something
+                return $this->json($parameter->toArray(), Response::HTTP_BAD_REQUEST);
+            }
+
             $entityManager->persist($parameter);
             $entityManager->flush();
 

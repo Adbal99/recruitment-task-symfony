@@ -3,7 +3,32 @@
 {% block title %}Parameters{% endblock %}
 
 {% block body %}
+    <a href="{{ path('params') }}">< Powrót</a>
+
     <h1>Dodaj parametr</h1>
-    {{ form(form) }}
+
+
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="col">
+        {{ form_row(form.name) }}
+    </div>
+
+    <div class="col" id="some-custom-id">
+        {{ form_row(form.value) }}
+    </div>
+
+    <div class="col" id="some-custom-id">
+        {{ form_row(form.exam) }}
+    </div>
+
+    <div class="col" id="some-custom-id">
+        {{ form_row(form.submit) }}
+    </div>
+
+    {{ form_end(form) }}
 
 {% endblock %}
